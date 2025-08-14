@@ -81,6 +81,6 @@ resource "aws_ecr_lifecycle_policy" "pubmed_public" {
     ]})
 }
 
-output "public_repository_uri" {
-  value = aws_ecrpublic_repository.pubmed_public.repository_uri
+output "public_image_uri_latest" {
+  value = "${aws_ecrpublic_repository.pubmed_public.repository_uri}:latest"
 }
