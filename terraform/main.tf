@@ -4,32 +4,6 @@ terraform {
   backend "s3" {}  // required to use -backend-config
 }
 
-# create ecr repo
-resource "aws_ecr_repository" "this" {
-  name = "pubmed"
-}
-
-resource "aws_ecr_lifecycle_policy" "this" {
-  repository = aws_ecr_repository.this.name
-
-  policy = jsonencode(
-    {
-    "rules": [
-      {
-        "rulePriority": 1,
-        "description": "Keep last 3 images",
-        "selection": {
-            "tagStatus": "any",
-            "countType": "imageCountMoreThan",
-            "countNumber": 3
-        },
-        "action": {
-            "type": "expire"
-        }
-      }
-    ]})
-}
-
 # Public ECR repository (ECR Public)
 resource "aws_ecrpublic_repository" "pubmed_public" {
   provider = aws.us_east_1
@@ -58,27 +32,6 @@ resource "aws_ecrpublic_repository_policy" "pubmed_public" {
       ]
     }]
   })
-}
-
-resource "aws_ecr_lifecycle_policy" "pubmed_public" {
-  repository = aws_ecrpublic_repository.pubmed_public.repository_name
-
-  policy = jsonencode(
-    {
-    "rules": [
-      {
-        "rulePriority": 1,
-        "description": "Keep last 3 images",
-        "selection": {
-            "tagStatus": "any",
-            "countType": "imageCountMoreThan",
-            "countNumber": 3
-        },
-        "action": {
-            "type": "expire"
-        }
-      }
-    ]})
 }
 
 output "public_image_uri_latest" {
