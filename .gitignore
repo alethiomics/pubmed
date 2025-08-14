@@ -1,0 +1,7 @@
+**.terraform**
+**.nextflow**
+work
+.venv
+results
+output
+terraform/backend.hcl

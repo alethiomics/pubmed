@@ -1,0 +1,4 @@
+biopython
+pandas
+beautifulsoup4
+urllib3
