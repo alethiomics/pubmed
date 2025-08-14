@@ -1,18 +1,18 @@
-# Nextflow template pipeline for webscraping by genes
+# A Nextflow pipeline to webscrape Pubmed results by genes
 
 This repo can be used as a template Nextflow pipeline that parallelise processes by gene IDs.
 
-At the same time this repo contains a pipeline to webscrape a number of gene specific publications from Pubmed.
-
-In the `prepare` step genes are downloaded from `Ensembl biomart`.
-
 ## Pipeline
 
-The template pipeline consists of three steps:
+The pipeline consists of three steps:
 
 ![](pubmed.png)
 
-where `analyze` step is parallalised by gene names/ids.
+1. `prepare`: Download gene list from Ensembl Biomart.
+
+2. `analyze`: Webscrape Pubmed for publications related to each gene. This step is parallelised by gene names/ids.
+
+3. `summarize`: Aggregate and format the results.
 
 ### maxForks in `analyze` process
 
